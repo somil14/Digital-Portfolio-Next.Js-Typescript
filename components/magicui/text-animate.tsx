@@ -149,6 +149,7 @@ const defaultItemAnimationVariants: Record<
         filter: "blur(0px)",
         y: 0,
         transition: {
+          delay,
           y: { duration: 0.3 },
           opacity: { duration: 0.4 },
           filter: { duration: 0.3 },
@@ -175,6 +176,7 @@ const defaultItemAnimationVariants: Record<
         filter: "blur(0px)",
         y: 0,
         transition: {
+          delay,
           y: { duration: 0.3 },
           opacity: { duration: 0.4 },
           filter: { duration: 0.3 },
@@ -251,33 +253,57 @@ const defaultItemAnimationVariants: Record<
       },
     },
   },
+  // scaleUp: {
+  //   container: defaultContainerVariants,
+  //   item: {
+  //     hidden: { scale: 0.5, opacity: 0 },
+  //     show: {
+  //       scale: 1,
+  //       opacity: 1,
+  //       transition: {
+  //         duration: 0.3,
+  //         scale: {
+  //           type: "spring",
+  //           damping: 15,
+  //           stiffness: 300,
+  //         },
+  //       },
+  //     },
+  //     exit: {
+  //       scale: 0.5,
+  //       opacity: 0,
+  //       transition: { duration: 0.3 },
+  //     },
+  //   },
+  // },
+  // scaleDown: {
+  //   container: defaultContainerVariants,
+  //   item: {
+  //     hidden: { scale: 1.5, opacity: 0 },
+  //     show: (delay: number) => ({
+  //       scale: 1,
+  //       opacity: 1,
+  //       transition: {
+  //         delay,
+  //         duration: 0.3,
+  //         scale: {
+  //           type: "spring",
+  //           damping: 15,
+  //           stiffness: 300,
+  //         },
+  //       },
+  //     }),
+  //     exit: {
+  //       scale: 1.5,
+  //       opacity: 0,
+  //       transition: { duration: 0.3 },
+  //     },
+  //   },
+  // },
   scaleUp: {
     container: defaultContainerVariants,
     item: {
       hidden: { scale: 0.5, opacity: 0 },
-      show: {
-        scale: 1,
-        opacity: 1,
-        transition: {
-          duration: 0.3,
-          scale: {
-            type: "spring",
-            damping: 15,
-            stiffness: 300,
-          },
-        },
-      },
-      exit: {
-        scale: 0.5,
-        opacity: 0,
-        transition: { duration: 0.3 },
-      },
-    },
-  },
-  scaleDown: {
-    container: defaultContainerVariants,
-    item: {
-      hidden: { scale: 1.5, opacity: 0 },
       show: (delay: number) => ({
         scale: 1,
         opacity: 1,
@@ -292,24 +318,34 @@ const defaultItemAnimationVariants: Record<
         },
       }),
       exit: {
-        scale: 1.5,
+        scale: 0.5,
         opacity: 0,
         transition: { duration: 0.3 },
       },
+    },
+  },
+  scaleDown: {
+    container: defaultContainerVariants,
+    item: {
+      hidden: { opacity: 0, scale: 1 },
+      show: (delay: number) => ({
+        opacity: 1,
+        scale: 0.5,
+        transition: {
+          delay,
+          duration: 0.3,
+        },
+      }),
     },
   },
 };
 
 export function TextAnimate({
   children,
-  delay = 0,
-  duration = 0.3,
-  variants,
   className,
   segmentClassName,
   as: Component = "p",
   startOnView = true,
-  once = false,
   by = "word",
   animation = "fadeIn",
   ...props
@@ -384,3 +420,5 @@ export function TextAnimate({
     </AnimatePresence>
   );
 }
+
+
