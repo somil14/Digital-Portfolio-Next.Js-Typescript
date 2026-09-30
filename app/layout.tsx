@@ -9,22 +9,25 @@ import { profile } from "@/content/profile";
 import { themeInitScript } from "@/lib/theme";
 import "./globals.css";
 
-// display "optional": text paints once and never reflows when a font arrives
-// late, which keeps LCP and CLS inside the budget. All three are preloaded,
-// so they are used on any connection that can fetch them in time.
+// Sans and serif swap in: their fallbacks are metric-adjusted by next/font, so
+// the swap barely moves anything. They are not "optional" because Chrome
+// treats a preloaded optional font as render-blocking, which delayed first
+// paint by over a second on the deployed site.
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
-  display: "optional",
+  display: "swap",
 });
 
-// No metric-adjusted fallback for mono: that fallback is Arial-based and
-// would show labels in a sans face. Without it the stack falls through to the
-// system monospace when the font misses its window.
+// Mono is labels and code. It is optional and not preloaded, so it never
+// blocks or shifts anything: a first visit shows the system monospace and
+// later visits use the cached font. No metric-adjusted fallback, because that
+// fallback is Arial-based and would show labels in a sans face.
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
   display: "optional",
+  preload: false,
   adjustFontFallback: false,
 });
 
@@ -33,7 +36,7 @@ const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
   weight: "400",
   style: ["normal", "italic"],
-  display: "optional",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
