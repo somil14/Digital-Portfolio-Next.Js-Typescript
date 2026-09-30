@@ -2,7 +2,14 @@ export type ExperienceSlug =
   "ftpc" | "gorillahub" | "seagull" | "seagull-intern" | "cbnits";
 
 export type ProjectSlug =
-  "whisperx" | "rankoraa" | "branchhub" | "sentinelparse" | "gorillahub-rbac";
+  | "whisperx"
+  | "rankoraa"
+  | "doctor-leads"
+  | "task-mgr"
+  | "branchhub"
+  | "sentinelparse"
+  | "gorillahub-rbac"
+  | "book-search";
 
 /** Anything a skill can be attributed to. */
 export type UsedInSlug = ExperienceSlug | ProjectSlug;
@@ -185,4 +192,16 @@ export interface PipelineLayer {
   /** Where Somil used it. Omitted when no role can be attributed. */
   where?: string;
   usedIn: UsedInSlug[];
+}
+
+/** A smaller public repository, listed in the "more repositories" section. */
+export interface RepoEntry {
+  slug: string;
+  name: string;
+  summary: string;
+  stack: string[];
+  year: number;
+  source: string;
+  live?: string;
+  group: "recent" | "early";
 }

@@ -53,8 +53,18 @@ export const sections: SiteSection[] = [
     title: { serif: "Things I've", mono: "built" },
   },
   {
-    id: "experience",
+    id: "repos",
     index: "05",
+    method: "ls",
+    path: "~/repos",
+    label: "More repositories",
+    status: "exit 0",
+    latencyMs: 2,
+    title: { serif: "More", mono: "repositories" },
+  },
+  {
+    id: "experience",
+    index: "06",
     method: "GET",
     path: "/experience",
     label: "Experience",
@@ -64,7 +74,7 @@ export const sections: SiteSection[] = [
   },
   {
     id: "stack",
-    index: "06",
+    index: "07",
     method: "cat",
     path: "package.json",
     label: "Stack",
@@ -74,7 +84,7 @@ export const sections: SiteSection[] = [
   },
   {
     id: "now",
-    index: "07",
+    index: "08",
     method: "102",
     path: "Processing",
     label: "Now",
@@ -84,7 +94,7 @@ export const sections: SiteSection[] = [
   },
   {
     id: "contact",
-    index: "08",
+    index: "09",
     method: "POST",
     path: "/contact",
     label: "Contact",

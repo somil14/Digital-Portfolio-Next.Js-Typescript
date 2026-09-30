@@ -6,6 +6,7 @@ import { Hero } from "@/components/sections/Hero";
 import { Now } from "@/components/sections/Now";
 import { Pipeline } from "@/components/sections/Pipeline";
 import { Projects } from "@/components/sections/Projects";
+import { Repos } from "@/components/sections/Repos";
 import { Stack } from "@/components/sections/Stack";
 import { Whoami } from "@/components/sections/Whoami";
 
@@ -18,6 +19,7 @@ export default function Home() {
       <CaseStudy />
       <Pipeline />
       <Projects />
+      <Repos />
       <Experience />
       <Stack />
       <Now />

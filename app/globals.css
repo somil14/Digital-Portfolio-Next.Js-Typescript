@@ -73,8 +73,12 @@
   --color-ok: var(--ok);
 
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  /* Named directly, not through next/font's variable: that variable also
+     carries an Arial-based fallback, which renders labels in a sans face
+     until Geist Mono has loaded. */
   --font-mono:
-    var(--font-geist-mono), ui-monospace, "SFMono-Regular", Menlo, monospace;
+    "Geist Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas,
+    "Liberation Mono", "DejaVu Sans Mono", monospace;
   --font-serif: var(--font-instrument-serif), "Iowan Old Style", Georgia, serif;
 
   --text-hero: clamp(4rem, 1rem + 9vw, 10rem);

@@ -13,30 +13,38 @@ export const skills: Skill[] = [
     name: "React",
     tier: "dependencies",
     level: production,
-    usedIn: ["ftpc", "seagull"],
+    usedIn: ["ftpc", "gorillahub", "seagull"],
   },
   {
     name: "Next.js",
     tier: "dependencies",
     level: production,
-    usedIn: ["ftpc", "seagull"],
+    usedIn: ["ftpc", "seagull", "rankoraa"],
   },
   {
     name: "TypeScript",
     tier: "dependencies",
     level: production,
-    usedIn: ["ftpc", "seagull"],
+    usedIn: ["ftpc", "seagull", "task-mgr"],
   },
-  // TODO(somil): which roles used JavaScript and REST APIs.
-  { name: "JavaScript", tier: "dependencies", level: production, usedIn: [] },
+  {
+    name: "JavaScript",
+    tier: "dependencies",
+    level: production,
+    usedIn: ["seagull-intern", "doctor-leads"],
+  },
   {
     name: "Node.js",
     tier: "dependencies",
     level: production,
-    usedIn: ["ftpc", "seagull"],
+    usedIn: ["ftpc", "gorillahub", "seagull", "doctor-leads"],
   },
-  // TODO(somil): which role used Express. It is not in any experience bullet.
-  { name: "Express", tier: "dependencies", level: production, usedIn: [] },
+  {
+    name: "Express",
+    tier: "dependencies",
+    level: production,
+    usedIn: ["seagull"],
+  },
   {
     name: "PostgreSQL",
     tier: "dependencies",
@@ -47,7 +55,7 @@ export const skills: Skill[] = [
     name: "MongoDB",
     tier: "dependencies",
     level: production,
-    usedIn: ["seagull"],
+    usedIn: ["seagull", "task-mgr"],
   },
   {
     name: "Prisma",
@@ -56,14 +64,24 @@ export const skills: Skill[] = [
     usedIn: ["seagull"],
   },
   { name: "Redis", tier: "dependencies", level: production, usedIn: ["ftpc"] },
-  { name: "REST APIs", tier: "dependencies", level: production, usedIn: [] },
+  {
+    name: "REST APIs",
+    tier: "dependencies",
+    level: production,
+    usedIn: ["gorillahub", "task-mgr"],
+  },
   {
     name: "JWT / RBAC",
     tier: "dependencies",
     level: production,
-    usedIn: ["gorillahub"],
+    usedIn: ["gorillahub", "task-mgr"],
   },
-  { name: "Docker", tier: "dependencies", level: production, usedIn: ["ftpc"] },
+  {
+    name: "Docker",
+    tier: "dependencies",
+    level: production,
+    usedIn: ["ftpc", "whisperx", "rankoraa", "task-mgr"],
+  },
   // TODO(somil): which role used these specific AWS services. Drop any not used in production.
   {
     name: "AWS (S3, EC2, IAM, CloudWatch)",
@@ -106,9 +124,29 @@ export const skills: Skill[] = [
     level: "scripting",
     usedIn: ["whisperx"],
   },
-  // TODO(somil): which roles or projects used Tailwind CSS and MySQL.
+  // TODO(somil): which role or project used Tailwind CSS.
   { name: "Tailwind CSS", tier: "devDependencies", level: working, usedIn: [] },
-  { name: "MySQL", tier: "devDependencies", level: working, usedIn: [] },
+  {
+    name: "MySQL",
+    tier: "devDependencies",
+    level: working,
+    usedIn: ["seagull-intern", "rankoraa"],
+  },
+  {
+    name: "ShadCN / Material UI",
+    tier: "devDependencies",
+    level: working,
+    usedIn: [],
+  },
+  {
+    name: "Git · Linux · CI/CD",
+    tier: "devDependencies",
+    level: working,
+    usedIn: ["doctor-leads", "task-mgr"],
+  },
+  { name: "OWASP ZAP", tier: "devDependencies", level: working, usedIn: [] },
+  // TODO(somil): the resume lists these without a level. They sit in working
+  // knowledge until you say otherwise.
   // TODO(somil): confirm. Attributed to BranchHub only once that project is included.
   {
     name: "Chrome Extension APIs",

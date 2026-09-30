@@ -21,8 +21,8 @@ const geistSans = Geist({
 
 // Mono is labels and code. It is optional and not preloaded, so it never
 // blocks or shifts anything: a first visit shows the system monospace and
-// later visits use the cached font. No metric-adjusted fallback, because that
-// fallback is Arial-based and would show labels in a sans face.
+// later visits use the cached font. globals.css names the family directly, so
+// the fallback is a real monospace rather than next/font's Arial-based one.
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],

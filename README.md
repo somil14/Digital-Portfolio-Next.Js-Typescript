@@ -6,7 +6,7 @@ Live: https://somil-athole.netlify.app
 
 ## Develop
 
-Requires Node 20.9 or later. The PDF and site-check scripts also need Google Chrome installed.
+Requires Node 20.9 or later. The site-check script also needs Google Chrome installed.
 
 ```bash
 npm install
@@ -24,12 +24,13 @@ npm run dev
 | `npm run check:site` | Against `out/`: axe on every page in both themes, overflow at four widths, no-JS, reduced motion, keyboard |
 | `npm run check:contrast` | WCAG AA on every colour token pair in both themes |
 | `npm run measure` | First-load JS per page against the 200 KB budget |
-| `npm run resume:pdf` | Build, then print `/resume` to `public/resume/Somil_Athole_Resume.pdf` |
 | `npm run lint` / `typecheck` / `format` | ESLint, TypeScript, Prettier |
 
 ## Where things live
 
-- `content/` — every fact on the site. Sections, metadata, `/tldr`, `/resume` and the PDF all read from here. Open questions are marked `TODO(somil)`.
+- `content/` — every fact on the site. Sections, metadata, `/tldr` and `/resume` read from here. Open questions are marked `TODO(somil)`.
+- `content/repos.ts` — the smaller finished repositories listed under "More repositories".
+- `public/resume/Somil_Athole_Resume.pdf` — the downloadable resume, supplied as-is.
 - `content/syntheticData.ts` — invented data for the demos. Nothing in it describes a real system.
 - `app/globals.css` — colour tokens for both themes, type scale, and every motion state.
 - `components/sections/` — one folder or file per page section.
@@ -39,7 +40,7 @@ npm run dev
 
 ## Editing content
 
-Change the files in `content/`, then run `npm run resume:pdf` so the downloadable resume matches, and commit both.
+Change the files in `content/`. The downloadable PDF is a separate file: when the resume changes, replace `public/resume/Somil_Athole_Resume.pdf` and update `content/` to match.
 
 ## Behaviour worth knowing
 

@@ -1,6 +1,6 @@
 import type { Experience } from "./types";
 
-/** Newest first. */
+/** Newest first. Wording follows the resume (public/resume). */
 export const experience: Experience[] = [
   {
     slug: "ftpc",
@@ -9,14 +9,14 @@ export const experience: Experience[] = [
     unit: "Corefix unit",
     role: "Full Stack Developer",
     type: "full-time",
-    arrangement: "Remote",
+    arrangement: "Remote, India",
     start: "2025-11",
     end: null,
     bullets: [
-      "Built vulnerability dashboards (CVE/CWE mapping, evidence, false-positive marking, risk acceptance) that cut manual triage by ~35%.",
-      "Built shadow-API and API-drift detection by diffing HAR / network logs against OpenAPI specs.",
-      "Added LLM-generated finding summaries, remediation guidance and prioritisation (OpenAI APIs).",
-      "Hardened services with request validation, rate limiting, Redis caching and a consistent error model; containerised with Docker and deployed on Kubernetes across AWS/GCP.",
+      "Built vulnerability management dashboards (severity, CVE/CWE, affected URLs, evidence, false-positive handling, risk acceptance, comments) with Next.js, TypeScript, Node.js and PostgreSQL, cutting manual triage effort by ~35%.",
+      "Designed and built shadow-API and API-drift detection: normalises endpoints from HAR and network logs (methods, path params, query strings, static-asset filtering) and diffs them against OpenAPI specs to flag undocumented, missing and drifted APIs.",
+      "Integrated LLM-generated finding summaries, remediation guidance and prioritisation into the analyst workflow.",
+      "Hardened backend services with schema validation, rate limiting, Redis caching and a consistent error and response model; containerised services with Docker and debugged deployments on Kubernetes (AWS/GCP).",
     ],
     stack: [
       "React",
@@ -38,11 +38,13 @@ export const experience: Experience[] = [
     shortName: "GorillaHub",
     role: "Software Developer",
     type: "freelance",
+    arrangement: "Remote, United Kingdom",
     start: "2025-04",
     end: "2025-08",
     bullets: [
-      "Implemented token-based auth and role-based access control (RBAC).",
-      "Built a library of reusable UI components.",
+      "Built client-facing full-stack modules with React, Node.js and REST APIs.",
+      "Implemented token-based authentication, protected routes and role-based access control across the application.",
+      "Turned business requirements into a reusable library of UI components and backend services shared across features.",
     ],
     branch: "freelance",
   },
@@ -52,13 +54,13 @@ export const experience: Experience[] = [
     shortName: "Seagull",
     role: "Full Stack Developer",
     type: "contract",
-    arrangement: "Remote",
+    arrangement: "Remote, United Kingdom",
     start: "2024-01",
     end: "2025-03",
     bullets: [
-      "Built product features across React, Next.js, TypeScript and Node.js with Prisma on PostgreSQL and MongoDB.",
-      "Structured a modular backend.",
-      // TODO(somil): 1–2 more factual bullets, no percentages unless on the resume.
+      "Built and maintained business applications with React, Next.js, TypeScript, Node.js, Express, Prisma and PostgreSQL/MongoDB.",
+      "Refactored the backend into modular services with Prisma, structured queries and input validation, improving the reliability of core API workflows.",
+      "Owned authentication flows, user modules and production debugging for application-level business logic.",
     ],
     branch: "main",
   },
@@ -68,15 +70,16 @@ export const experience: Experience[] = [
     shortName: "Seagull",
     role: "Web Developer Intern",
     type: "internship",
-    arrangement: "Remote",
+    arrangement: "Remote, United Kingdom",
     start: "2023-07",
     end: "2024-01",
     bullets: [
-      // TODO(somil): 1–2 factual bullets.
+      "Built front-end and back-end features for a career and talent discovery web platform using the MERN stack and MySQL.",
     ],
     branch: "main",
   },
   {
+    // TODO(somil): CBNITS is not on the current resume. Keep it here, or drop it?
     slug: "cbnits",
     company: "CBNITS",
     shortName: "CBNITS",

@@ -213,6 +213,16 @@ try {
     const unfocusable = await page.evaluate(() =>
       [...document.querySelectorAll("a[href], button")]
         .filter((element) => element.offsetParent !== null)
+        // Links inside a sentence are exempt (WCAG 2.5.8, inline exception).
+        .filter((element) => {
+          const parent = element.parentElement;
+          const inline =
+            element.tagName === "A" &&
+            parent?.tagName === "P" &&
+            parent.textContent.trim().length >
+              element.textContent.trim().length + 5;
+          return !inline;
+        })
         .filter((element) => {
           const rect = element.getBoundingClientRect();
           return rect.width > 0 && (rect.height < 24 || rect.width < 24);

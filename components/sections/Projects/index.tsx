@@ -15,8 +15,8 @@ const layouts: Record<number, string[]> = {
   3: ["lg:col-span-4", "lg:col-span-2", "lg:col-span-6"],
   4: ["lg:col-span-4", "lg:col-span-2", "lg:col-span-2", "lg:col-span-4"],
   5: [
-    "lg:col-span-4",
-    "lg:col-span-2",
+    "lg:col-span-3",
+    "lg:col-span-3",
     "lg:col-span-2",
     "lg:col-span-2",
     "lg:col-span-2",
