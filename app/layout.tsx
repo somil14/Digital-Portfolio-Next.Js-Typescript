@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
+import { Interactions } from "@/components/layout/Interactions";
 import { Nav } from "@/components/layout/Nav";
 import { SkipLink } from "@/components/layout/SkipLink";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
@@ -9,21 +10,22 @@ import { themeInitScript } from "@/lib/theme";
 import "./globals.css";
 
 // display "optional": text paints once and never reflows when a font arrives
-// late, which keeps LCP and CLS inside the budget. Sans and serif are
-// preloaded, so they are used on any connection that can fetch them in time.
+// late, which keeps LCP and CLS inside the budget. All three are preloaded,
+// so they are used on any connection that can fetch them in time.
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
   display: "optional",
 });
 
-// Mono is only small labels and code, so it does not take a preload slot. A
-// first visit on a slow connection sees the system monospace instead.
+// No metric-adjusted fallback for mono: that fallback is Arial-based and
+// would show labels in a sans face. Without it the stack falls through to the
+// system monospace when the font misses its window.
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
   display: "optional",
-  preload: false,
+  adjustFontFallback: false,
 });
 
 const instrumentSerif = Instrument_Serif({
@@ -74,6 +76,7 @@ export default function RootLayout({
         </main>
         <StatusBar />
         <SmoothScroll />
+        <Interactions />
       </body>
     </html>
   );

@@ -55,6 +55,7 @@ export function Stack() {
                           key={skill.name}
                           data-skill={skill.name}
                           data-used-in={skill.usedIn.join(" ")}
+                          tabIndex={names.length > 0 ? 0 : undefined}
                           className="whitespace-nowrap"
                         >
                           <Json>&quot;</Json>

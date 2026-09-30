@@ -26,7 +26,12 @@ export function Hero() {
             {firstName} <span className="italic">{lastName}</span>
           </h1>
           <div className="flex max-w-[35rem] flex-col gap-5">
-            <p className="label text-signal">{profile.headline}</p>
+            <p className="label text-signal">
+              <span className="sr-only">{profile.headline}</span>
+              <span aria-hidden="true" data-decode-now>
+                {profile.headline}
+              </span>
+            </p>
             <p className="font-serif text-3xl leading-tight text-balance md:text-4xl">
               {profile.oneLiner}
             </p>
@@ -56,21 +61,21 @@ export function Hero() {
       <div className="shell flex flex-wrap items-end justify-between gap-x-10 gap-y-5 pb-8">
         <div aria-hidden="true" className="min-w-0 font-mono text-xs leading-6">
           <p className="label text-muted mb-1">request log · simulated</p>
-          <ul className="text-muted">
-            {requestLog.slice(0, 4).map((request) => (
-              <li
-                key={`${request.method} ${request.path}`}
-                className="truncate tabular-nums"
-              >
-                <span className="text-signal">{request.method}</span>{" "}
-                {request.path} <span className="text-ok">{request.status}</span>{" "}
-                {request.latencyMs}ms
-                {request.inSpec ? null : (
-                  <span className="text-warn"> ⚠ not in spec</span>
-                )}
-              </li>
-            ))}
-          </ul>
+          <div className="h-24 overflow-hidden">
+            <ul className="text-muted ticker-track">
+              {[...requestLog, ...requestLog].map((request, index) => (
+                <li key={index} className="h-6 truncate tabular-nums">
+                  <span className="text-signal">{request.method}</span>{" "}
+                  {request.path}{" "}
+                  <span className="text-ok">{request.status}</span>{" "}
+                  {request.latencyMs}ms
+                  {request.inSpec ? null : (
+                    <span className="text-warn"> ⚠ not in spec</span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
         <p className="label text-muted tabular-nums">

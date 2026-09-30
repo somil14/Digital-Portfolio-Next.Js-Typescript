@@ -9,7 +9,10 @@ interface StatusPillProps {
 
 const dot = { ok: "bg-ok", warn: "bg-warn", muted: "bg-muted" };
 
-/** Decorative response status. The timing is styling, not a measurement. */
+/**
+ * Decorative response status. Shows "···" until its section is revealed
+ * (CSS, see globals). The timing is styling, not a measurement.
+ */
 export function StatusPill({
   status,
   latencyMs,
@@ -24,7 +27,8 @@ export function StatusPill({
       )}
     >
       <span className={cn("size-1.5 rounded-full", dot[tone])} />
-      <span className="status-pill-text">
+      <span className="status-pending">···</span>
+      <span className="status-final">
         {status}
         {latencyMs ? ` · ${latencyMs}ms` : null}
       </span>

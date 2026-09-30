@@ -2,6 +2,7 @@ import Link from "next/link";
 import { profile } from "@/content/profile";
 import { sections } from "@/content/sections";
 import { RESUME_PDF_PATH } from "@/lib/paths";
+import { CommandMenu } from "./CommandMenu";
 import { SectionMenu } from "./SectionMenu";
 import { ThemeToggle } from "./ThemeToggle";
 
@@ -26,6 +27,7 @@ export function Nav() {
         <SectionMenu sections={sections} />
 
         <div className="flex items-center justify-end gap-1 md:gap-3">
+          <CommandMenu />
           <Link
             href="/tldr/"
             className="label text-muted hover:text-text hidden h-11 items-center px-2 transition-colors duration-200 md:inline-flex"

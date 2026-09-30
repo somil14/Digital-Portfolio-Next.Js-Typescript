@@ -61,7 +61,7 @@ export const projects: Project[] = [
     name: "RBAC & auth (GorillaHub)",
     summary: "Token-based auth and role-based access control for a UK client.",
     status: "Client work",
-    // TODO(somil): were the tokens JWTs? If not, the demo says "token claims".
+    // TODO(somil): were the tokens JWTs? Until confirmed the demo says "token claims".
     stack: [],
     bullets: [
       "Implemented token-based auth and role-based access control (RBAC).",

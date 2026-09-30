@@ -25,7 +25,18 @@ export async function CodePanel({
   note,
   className,
 }: CodePanelProps) {
-  const html = await codeToHtml(code, { lang, theme });
+  const html = await codeToHtml(code, {
+    lang,
+    theme,
+    transformers: [
+      {
+        // Line index drives the typed-in reveal delay (see globals.css).
+        line(node, line) {
+          node.properties.style = `--line:${line}`;
+        },
+      },
+    ],
+  });
   return (
     <Panel title={title} note={note} className={className}>
       <div dangerouslySetInnerHTML={{ __html: html }} />

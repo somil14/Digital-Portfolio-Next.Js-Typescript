@@ -1,6 +1,9 @@
 import { Section } from "@/components/ui/Section";
 import { includedProjects } from "@/content/projects";
+import type { ProjectSlug } from "@/content/types";
 import { ProjectCard } from "./ProjectCard";
+import { RbacDemo } from "./RbacDemo";
+import { WhisperDemo } from "./WhisperDemo";
 
 /**
  * Column spans on a 6-column grid, by card count then position, so the grid
@@ -20,6 +23,12 @@ const layouts: Record<number, string[]> = {
   ],
 };
 
+/** Mini demos, by project. A project without one renders as a plain card. */
+const demos: Partial<Record<ProjectSlug, React.ReactNode>> = {
+  whisperx: <WhisperDemo />,
+  "gorillahub-rbac": <RbacDemo />,
+};
+
 export function Projects() {
   const spans = layouts[includedProjects.length] ?? [];
   return (
@@ -29,6 +38,7 @@ export function Projects() {
           <ProjectCard
             key={project.slug}
             project={project}
+            demo={demos[project.slug]}
             className={spans[index] ?? "lg:col-span-3"}
           />
         ))}

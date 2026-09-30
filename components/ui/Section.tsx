@@ -16,9 +16,11 @@ export function Section({ id, lede, children }: SectionProps) {
     <section
       id={id}
       aria-labelledby={`${id}-title`}
-      className="border-line border-t"
+      data-reveal
+      className="border-line relative overflow-clip border-t"
     >
-      <div className="shell py-20 md:py-28">
+      <span aria-hidden="true" className="scanline" />
+      <div className="shell reveal-content py-20 md:py-28">
         <SectionHeading section={section} />
         {lede ? (
           <p className="text-muted mt-6 max-w-[38rem] text-pretty">{lede}</p>

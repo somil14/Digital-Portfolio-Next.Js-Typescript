@@ -341,3 +341,27 @@ export const remediation: SyntheticRemediation = {
 
 /** Simulated timings for the pipeline cache toggle. */
 export const pipelineLatency = { hitMs: 4, missMs: 48 };
+
+/** Lines the WhisperX demo "transcribes". Invented; shows the output format. */
+export const transcriptDemo = [
+  { time: "00:00:00:420", text: "welcome to the session" },
+  { time: "00:00:02:180", text: "<FIL>um</FIL> let's begin" },
+  { time: "00:00:03:900", text: "<PAUSE>" },
+  { time: "00:00:04:650", text: "there are two thousand records" },
+];
+
+/** Roles and permissions for the RBAC demo. Invented. */
+export const rbacDemo = {
+  subject: "user_demo",
+  actions: [
+    { id: "report:read", label: "View report" },
+    { id: "report:write", label: "Edit report" },
+    { id: "report:delete", label: "Delete report" },
+    { id: "users:manage", label: "Manage users" },
+  ],
+  roles: {
+    Admin: ["report:read", "report:write", "report:delete", "users:manage"],
+    Editor: ["report:read", "report:write"],
+    Viewer: ["report:read"],
+  },
+} as const;

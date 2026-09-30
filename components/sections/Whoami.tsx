@@ -2,6 +2,7 @@ import { Chip } from "@/components/ui/Chip";
 import { CodePanel } from "@/components/ui/CodePanel";
 import { Section } from "@/components/ui/Section";
 import { profile } from "@/content/profile";
+import { ViewToggle } from "./ViewToggle";
 
 const list = (items: readonly string[]) =>
   items.map((item) => `"${item}"`).join(", ");
@@ -30,36 +31,39 @@ const facts = [
 export function Whoami() {
   return (
     <Section id="whoami">
-      <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
-        <div className="flex flex-col gap-8">
-          <div className="flex flex-col gap-5 font-serif text-xl leading-snug text-pretty md:text-2xl">
-            {profile.about.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
+      <ViewToggle
+        human={
+          <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-5 font-serif text-xl leading-snug text-pretty md:text-2xl">
+              {profile.about.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
+            <ul className="flex flex-wrap gap-2">
+              {facts.map((fact) => (
+                <li key={fact}>
+                  <Chip>{fact}</Chip>
+                </li>
+              ))}
+            </ul>
+            <p className="text-muted text-sm">
+              {profile.education.degree} · {profile.education.school} ·{" "}
+              {profile.education.years}
+              <br />
+              {profile.location}. {profile.openTo}.
+            </p>
           </div>
-          <ul className="flex flex-wrap gap-2">
-            {facts.map((fact) => (
-              <li key={fact}>
-                <Chip>{fact}</Chip>
-              </li>
-            ))}
-          </ul>
-          <p className="text-muted text-sm">
-            {profile.education.degree} · {profile.education.school} ·{" "}
-            {profile.education.years}
-            <br />
-            {profile.location}. {profile.openTo}.
-          </p>
-        </div>
-
-        <CodePanel
-          title="somil.ts"
-          note="same facts, typed"
-          lang="typescript"
-          code={profileAsCode}
-          className="self-start"
-        />
-      </div>
+        }
+        json={
+          <CodePanel
+            title="somil.ts"
+            note="same facts, typed"
+            lang="typescript"
+            code={profileAsCode}
+            className="lg:sticky lg:top-20"
+          />
+        }
+      />
     </Section>
   );
 }

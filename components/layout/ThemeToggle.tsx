@@ -1,17 +1,6 @@
 "use client";
 
-import { THEME_STORAGE_KEY, type Theme } from "@/lib/theme";
-
-function toggleTheme() {
-  const root = document.documentElement;
-  const next: Theme = root.dataset.theme === "light" ? "dark" : "light";
-  root.dataset.theme = next;
-  try {
-    localStorage.setItem(THEME_STORAGE_KEY, next);
-  } catch {
-    // Storage can be blocked; the choice then lasts for this page view only.
-  }
-}
+import { toggleTheme } from "./CommandMenu";
 
 /**
  * Which label shows is decided in CSS from `data-theme`, which the inline

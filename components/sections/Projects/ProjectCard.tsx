@@ -23,8 +23,9 @@ export function ProjectCard({ project, className, demo }: ProjectCardProps) {
     <article
       aria-labelledby={titleId}
       data-project={project.slug}
+      data-tilt
       className={cn(
-        "border-line bg-surface flex min-w-0 flex-col border",
+        "border-line bg-surface relative flex min-w-0 flex-col border",
         className,
       )}
     >
