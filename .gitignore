@@ -42,3 +42,14 @@ next-env.d.ts
 
 # Local Netlify folder
 .netlify
+
+# claude code local tooling
+/.claude/
+/skills-lock.json
+.playwright/
+.netlify/
+.playwright-cli/
+
+# working notes, kept out of the public repo
+/PORTFOLIO_BRIEF.md
+/PREREQUISITES.md

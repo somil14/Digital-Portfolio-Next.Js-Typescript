@@ -1,0 +1,97 @@
+import type { Experience } from "./types";
+
+/** Newest first. Wording follows the resume (public/resume). */
+export const experience: Experience[] = [
+  {
+    slug: "ftpc",
+    company: "FTPC — Fusion Technologies Process Consulting",
+    shortName: "Corefix",
+    unit: "Corefix unit",
+    role: "Full Stack Developer",
+    type: "full-time",
+    arrangement: "Remote, India",
+    start: "2025-11",
+    end: null,
+    bullets: [
+      "Built vulnerability management dashboards (severity, CVE/CWE, affected URLs, evidence, false-positive handling, risk acceptance, comments) with Next.js, TypeScript, Node.js and PostgreSQL, cutting manual triage effort by ~35%.",
+      "Designed and built shadow-API and API-drift detection: normalises endpoints from HAR and network logs (methods, path params, query strings, static-asset filtering) and diffs them against OpenAPI specs to flag undocumented, missing and drifted APIs.",
+      "Integrated LLM-generated finding summaries, remediation guidance and prioritisation into the analyst workflow.",
+      "Hardened backend services with schema validation, rate limiting, Redis caching and a consistent error and response model; containerised services with Docker and debugged deployments on Kubernetes (AWS/GCP).",
+    ],
+    stack: [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Node.js",
+      "PostgreSQL",
+      "Redis",
+      "Docker",
+      "Kubernetes",
+      "OpenAI",
+    ],
+    note: "Joined FTPC's DeepTraq AI team on a pre-hire engagement in Sep–Oct 2025 before moving to Corefix.",
+    branch: "main",
+  },
+  {
+    slug: "gorillahub",
+    company: "GorillaHub (UK)",
+    shortName: "GorillaHub",
+    role: "Software Developer",
+    type: "freelance",
+    arrangement: "Remote, United Kingdom",
+    start: "2025-04",
+    end: "2025-08",
+    bullets: [
+      "Built client-facing full-stack modules with React, Node.js and REST APIs.",
+      "Implemented token-based authentication, protected routes and role-based access control across the application.",
+      "Turned business requirements into a reusable library of UI components and backend services shared across features.",
+    ],
+    branch: "freelance",
+  },
+  {
+    slug: "seagull",
+    company: "Seagull (UK)",
+    shortName: "Seagull",
+    role: "Full Stack Developer",
+    type: "contract",
+    arrangement: "Remote, United Kingdom",
+    start: "2024-01",
+    end: "2025-03",
+    bullets: [
+      "Built and maintained business applications with React, Next.js, TypeScript, Node.js, Express, Prisma and PostgreSQL/MongoDB.",
+      "Refactored the backend into modular services with Prisma, structured queries and input validation, improving the reliability of core API workflows.",
+      "Owned authentication flows, user modules and production debugging for application-level business logic.",
+    ],
+    branch: "main",
+  },
+  {
+    slug: "seagull-intern",
+    company: "Seagull (UK)",
+    shortName: "Seagull",
+    role: "Web Developer Intern",
+    type: "internship",
+    arrangement: "Remote, United Kingdom",
+    start: "2023-07",
+    end: "2024-01",
+    bullets: [
+      "Built front-end and back-end features for a career and talent discovery web platform using the MERN stack and MySQL.",
+    ],
+    branch: "main",
+  },
+  {
+    // TODO(somil): CBNITS is not on the current resume. Keep it here, or drop it?
+    slug: "cbnits",
+    company: "CBNITS",
+    shortName: "CBNITS",
+    role: "UX Design Intern",
+    type: "internship",
+    start: "2022-02",
+    end: "2022-09",
+    bullets: [
+      "Ran user research and usability testing to inform design decisions.",
+      // TODO(somil): confirm whether the client name can be shown. The old site named it publicly.
+      "Contributed to UX for a large enterprise security product.",
+    ],
+    branch: "ux",
+  },
+];

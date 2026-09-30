@@ -1,37 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Somil Athole — portfolio (SIGNAL)
 
-## Getting Started
+Personal portfolio for Somil Athole: a static Next.js site styled as an API security console, deployed on Netlify.
 
-First, run the development server:
+Live: https://somil-athole.netlify.app
+
+## Develop
+
+Requires Node 20.9 or later. The site-check script also needs Google Chrome installed.
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Scripts
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Script | What it does |
+|---|---|
+| `npm run dev` | Dev server on http://localhost:3000 |
+| `npm run build` | Static export to `out/` |
+| `npm run start` | Serve the exported `out/` folder |
+| `npm run verify` | Contrast, lint, typecheck, build and bundle-size check |
+| `npm run check:site` | Against `out/`: axe on every page in both themes, overflow at four widths, no-JS, reduced motion, keyboard |
+| `npm run check:contrast` | WCAG AA on every colour token pair in both themes |
+| `npm run measure` | First-load JS per page against the 200 KB budget |
+| `npm run lint` / `typecheck` / `format` | ESLint, TypeScript, Prettier |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Where things live
 
-## Learn More
+- `content/` — every fact on the site. Sections, metadata, `/tldr` and `/resume` read from here. Open questions are marked `TODO(somil)`.
+- `content/repos.ts` — the smaller finished repositories listed under "More repositories".
+- `public/resume/Somil_Athole_Resume.pdf` — the downloadable resume, supplied as-is.
+- `content/syntheticData.ts` — invented data for the demos. Nothing in it describes a real system.
+- `app/globals.css` — colour tokens for both themes, type scale, and every motion state.
+- `components/sections/` — one folder or file per page section.
+- `components/three/` — the two WebGL scenes. Loaded lazily, and only on devices that will render them.
+- `components/layout/` — nav, section menu, command palette, theme toggle, page-wide interactions.
+- `public/__forms.html` — static definition of the contact form for Netlify Forms.
 
-To learn more about Next.js, take a look at the following resources:
+## Editing content
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Change the files in `content/`. The downloadable PDF is a separate file: when the resume changes, replace `public/resume/Somil_Athole_Resume.pdf` and update `content/` to match.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Behaviour worth knowing
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# Digital-Portfolio-Next.Js-Typescript
+- **Device tiers.** Touch, low-power, reduced-motion and no-WebGL devices get static SVG versions of the 3D scenes and never download three.js.
+- **No JavaScript.** All content renders in its final state; hidden "before" animation states only apply once the inline head script has run.
+- **Fonts** use `display: optional`, so text never reflows when a font arrives late.
+- **`?mode=tldr`** redirects to `/tldr/`, a one-column summary for recruiters.

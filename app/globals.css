@@ -1,73 +1,798 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
+/*
+ * Colour tokens. Dark is the default. The light ("spec sheet") values appear
+ * twice: once for an explicit choice, once for visitors without JavaScript
+ * whose system prefers light. scripts/check-contrast.mjs reads these blocks
+ * and fails if they drift apart or drop below WCAG AA.
+ */
+:root {
+  color-scheme: dark;
+  --bg: #0a0c0f;
+  --surface: #11151b;
+  --surface-2: #171c24;
+  --line: #1f2630;
+  --text: #e6eaf0;
+  --muted: #8892b0;
+  --signal: #00d4ff;
+  --warn: #ffb224;
+  --crit: #ff5a5f;
+  --ok: #3ddc97;
+
+  --grid-alpha: 40%;
+  --grain-alpha: 0.04;
+  --nav-height: 3.5rem;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f4f1ea;
+  --surface: #fbf9f4;
+  --surface-2: #efebe2;
+  --line: #ddd6c8;
+  --text: #14171c;
+  --muted: #5b6475;
+  --signal: #00709e;
+  --warn: #975a00;
+  --crit: #c4262e;
+  --ok: #1a774d;
+
+  --grid-alpha: 55%;
+  --grain-alpha: 0.03;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    color-scheme: light;
+    --bg: #f4f1ea;
+    --surface: #fbf9f4;
+    --surface-2: #efebe2;
+    --line: #ddd6c8;
+    --text: #14171c;
+    --muted: #5b6475;
+    --signal: #00709e;
+    --warn: #975a00;
+    --crit: #c4262e;
+    --ok: #1a774d;
+
+    --grid-alpha: 55%;
+    --grain-alpha: 0.03;
+  }
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-signal: var(--signal);
+  --color-warn: var(--warn);
+  --color-crit: var(--crit);
+  --color-ok: var(--ok);
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  /* Named directly, not through next/font's variable: that variable also
+     carries an Arial-based fallback, which renders labels in a sans face
+     until Geist Mono has loaded. */
+  --font-mono:
+    "Geist Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas,
+    "Liberation Mono", "DejaVu Sans Mono", monospace;
+  --font-serif: var(--font-instrument-serif), "Iowan Old Style", Georgia, serif;
+
+  --text-hero: clamp(4rem, 1rem + 9vw, 10rem);
+  --text-hero--line-height: 0.92;
+  --text-title: clamp(2.5rem, 1.5rem + 4.4vw, 5.5rem);
+  --text-title--line-height: 1;
+  --text-body: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+  --text-body--line-height: 1.6;
+  --text-label: 0.78125rem;
+  --text-label--line-height: 1.4;
+
+  --ease-entrance: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 10% 3.9%;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
-    --radius: 0.5rem;
+  html {
+    background-color: var(--bg);
+    scroll-padding-top: calc(var(--nav-height) + 1.5rem);
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
-  .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
-  }
-}
 
-@layer base {
-  * {
-    border: var(--border);
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
   }
+
+  /* Lenis drives scrolling itself; native smooth scroll would fight it. */
+  html.lenis {
+    scroll-behavior: auto;
+  }
+
   body {
-    background-color: var(--background);
-    color: var(--foreground);
+    min-height: 100dvh;
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    background-color: var(--bg);
+    background-image:
+      linear-gradient(
+        to right,
+        color-mix(in srgb, var(--line) var(--grid-alpha), transparent) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        color-mix(in srgb, var(--line) var(--grid-alpha), transparent) 1px,
+        transparent 1px
+      );
+    background-size: 64px 64px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Film grain. Decorative and click-through. */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    opacity: var(--grain-alpha);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  @media print {
+    body {
+      background-image: none;
+    }
+    body::before {
+      display: none;
+    }
+  }
+
+  ::selection {
+    color: var(--bg);
+    background-color: var(--signal);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--signal);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  a {
+    text-underline-offset: 0.2em;
+  }
+
+  a,
+  button {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: color-mix(
+      in srgb,
+      var(--signal) 20%,
+      transparent
+    );
+  }
+}
+
+@layer components {
+  /* Mono "machine" label: eyebrows, readouts, chips. */
+  .label {
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    line-height: var(--text-label--line-height);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .skip-link {
+    position: fixed;
+    top: 0.5rem;
+    left: 0.5rem;
+    z-index: 100;
+    padding: 0.625rem 1rem;
+    color: var(--bg);
+    background-color: var(--signal);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    transform: translateY(-200%);
+  }
+
+  .skip-link:focus {
+    transform: translateY(0);
+    outline-color: var(--text);
+  }
+
+  /* Page progress line under the nav. No JavaScript: scroll-driven CSS. */
+  .scroll-progress {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  @supports (animation-timeline: scroll()) {
+    .scroll-progress {
+      animation: scroll-progress linear both;
+      animation-timeline: scroll(root block);
+    }
+  }
+
+  @keyframes scroll-progress {
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  .pulse-dot {
+    position: relative;
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 9999px;
+    background-color: var(--ok);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .pulse-dot::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background-color: var(--ok);
+      animation: pulse-dot 2.4s var(--ease-entrance) infinite;
+    }
+  }
+
+  @keyframes pulse-dot {
+    0% {
+      transform: scale(1);
+      opacity: 0.6;
+    }
+    80%,
+    100% {
+      transform: scale(2.6);
+      opacity: 0;
+    }
+  }
+
+  /* Section menu popover, anchored under the nav. */
+  .section-menu[popover] {
+    position: fixed;
+    inset: auto;
+    top: calc(var(--nav-height) + 0.5rem);
+    left: 50%;
+    translate: -50% 0;
+    margin: 0;
+    width: min(22rem, calc(100vw - 2rem));
+    max-height: calc(100dvh - var(--nav-height) - 1.5rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    color: var(--text);
+    background-color: var(--surface);
+    border: 1px solid var(--line);
+    padding: 0.375rem;
+  }
+
+  .section-menu[popover]::backdrop {
+    background-color: color-mix(in srgb, var(--bg) 55%, transparent);
+  }
+}
+
+/* Controls that only work with JavaScript are hidden without it. */
+html:not(.js) .js-only {
+  display: none;
+}
+
+/* Theme toggle shows the theme it will switch to. */
+:root[data-theme="light"] .theme-when-dark,
+:root:not([data-theme="light"]) .theme-when-light {
+  display: none;
+}
+
+@layer components {
+  /* Page gutter and max width, shared by every section. */
+  .shell {
+    width: 100%;
+    max-width: 90rem;
+    margin-inline: auto;
+    padding-inline: 1rem;
+  }
+
+  @media (min-width: 48rem) {
+    .shell {
+      padding-inline: 2rem;
+    }
+  }
+
+  .btn {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.125rem;
+    border: 1px solid var(--line);
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    letter-spacing: 0.04em;
+    color: var(--text);
+    transition:
+      border-color 200ms var(--ease-entrance),
+      background-color 200ms var(--ease-entrance),
+      color 200ms var(--ease-entrance);
+  }
+
+  .btn:hover {
+    border-color: var(--signal);
+    color: var(--signal);
+  }
+
+  .btn-primary {
+    border-color: var(--signal);
+    background-color: var(--signal);
+    color: var(--bg);
+  }
+
+  .btn-primary:hover {
+    background-color: transparent;
+    color: var(--signal);
+  }
+
+  .btn[aria-disabled="true"],
+  .btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  .link {
+    color: var(--signal);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--signal) 45%, transparent);
+  }
+
+  .link:hover {
+    text-decoration-color: currentColor;
+  }
+
+  /* Shiki output, coloured from the theme tokens so both themes stay AA. */
+  .shiki {
+    --shiki-foreground: var(--text);
+    --shiki-background: transparent;
+    --shiki-token-constant: var(--warn);
+    --shiki-token-string: var(--ok);
+    --shiki-token-comment: var(--muted);
+    --shiki-token-keyword: var(--signal);
+    --shiki-token-parameter: var(--text);
+    --shiki-token-function: var(--text);
+    --shiki-token-string-expression: var(--ok);
+    --shiki-token-punctuation: var(--muted);
+    --shiki-token-link: var(--signal);
+    margin: 0;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    line-height: 1.75;
+    tab-size: 2;
+  }
+
+  .field {
+    width: 100%;
+    min-height: 2.75rem;
+    padding: 0.625rem 0.75rem;
+    border: 1px solid var(--line);
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+  }
+
+  .field:hover {
+    border-color: var(--muted);
+  }
+}
+
+/* Resume and print: always ink on paper, whatever the theme. */
+@media print {
+  :root,
+  :root[data-theme] {
+    color-scheme: light;
+    --bg: #ffffff;
+    --surface: #ffffff;
+    --surface-2: #ffffff;
+    --line: #c9c9c9;
+    --text: #000000;
+    --muted: #3d3d3d;
+    --signal: #000000;
+    --warn: #000000;
+    --crit: #000000;
+    --ok: #000000;
+  }
+
+  @page {
+    size: A4;
+    margin: 11mm 14mm;
+  }
+
+  .skip-link {
+    display: none;
+  }
+}
+
+@layer components {
+  .shiki {
+    position: relative;
+  }
+}
+
+/*
+ * Phase 3: reveal states. Every hidden "before" state is gated on .js (set by
+ * the head script) and on motion being allowed, so without JavaScript or with
+ * reduced motion the page renders in its final state.
+ */
+.status-pending {
+  display: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal] .reveal-content {
+    transition:
+      opacity 700ms var(--ease-entrance),
+      transform 700ms var(--ease-entrance);
+  }
+
+  .js [data-reveal]:not([data-revealed]) .reveal-content {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+
+  .js [data-reveal]:not([data-revealed]) .status-final {
+    display: none;
+  }
+
+  .js [data-reveal]:not([data-revealed]) .status-pending {
+    display: inline;
+  }
+
+  /* A 1px line sweeps down the first screen of the section. */
+  .scanline {
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    height: min(100%, 100svh);
+    border-bottom: 1px solid var(--signal);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .js [data-revealed] > .scanline {
+    animation: scanline 900ms var(--ease-entrance) both;
+  }
+
+  @keyframes scanline {
+    0% {
+      transform: translateY(-100%);
+      opacity: 1;
+    }
+    85% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 0;
+    }
+  }
+
+  /* Code panels type in line by line. */
+  .js [data-reveal] .shiki .line {
+    transition: opacity 300ms linear;
+    transition-delay: calc(var(--line, 0) * 45ms + 200ms);
+  }
+
+  .js [data-reveal]:not([data-revealed]) .shiki .line {
+    opacity: 0;
+  }
+
+  /* Hero request log ticks upward one line at a time. */
+  .ticker-track {
+    animation: ticker 20s steps(10) infinite;
+  }
+
+  @keyframes ticker {
+    to {
+      transform: translateY(-50%);
+    }
+  }
+
+  /* Project cards tilt toward the pointer (fine pointers only, set by JS). */
+  [data-tilt] {
+    transform: perspective(900px) rotateX(var(--tilt-x, 0deg))
+      rotateY(var(--tilt-y, 0deg));
+    transition: transform 250ms var(--ease-entrance);
+  }
+
+  [data-tilt]::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: var(--tilt-glow, 0);
+    background: radial-gradient(
+      22rem circle at var(--tilt-mx, 50%) var(--tilt-my, 50%),
+      color-mix(in srgb, var(--signal) 14%, transparent),
+      transparent 70%
+    );
+    transition: opacity 250ms linear;
+  }
+
+  /* WhisperX demo: bars move, transcript lines appear in turn. */
+  .wave-bar {
+    transform-origin: center;
+    animation: wave 1.2s ease-in-out infinite;
+    animation-delay: calc(var(--i) * -90ms);
+  }
+
+  @keyframes wave {
+    0%,
+    100% {
+      transform: scaleY(0.35);
+    }
+    50% {
+      transform: scaleY(1);
+    }
+  }
+
+  .transcript-line {
+    opacity: 0;
+    animation: transcript 8s linear infinite;
+    animation-delay: calc(var(--i) * 1.4s);
+  }
+
+  @keyframes transcript {
+    0%,
+    4% {
+      opacity: 0;
+    }
+    8%,
+    88% {
+      opacity: 1;
+    }
+    94%,
+    100% {
+      opacity: 0;
+    }
+  }
+
+  .packet {
+    transition:
+      left 520ms var(--ease-entrance),
+      opacity 200ms linear;
+  }
+}
+
+/* One view at a time below the two-column breakpoint (Human ⇄ JSON). */
+@media (max-width: 63.99rem) {
+  .js [data-view="human"] .view-json,
+  .js [data-view="json"] .view-human {
+    display: none;
+  }
+}
+
+/* Stack cross-highlight: roles and projects that used the hovered skill. */
+[data-highlight] {
+  outline: 1px solid var(--signal);
+  outline-offset: 6px;
+}
+
+[data-skill][tabindex]:hover,
+[data-skill][tabindex]:focus-visible {
+  background-color: var(--surface-2);
+}
+
+/* Command palette (cmdk). */
+[cmdk-overlay] {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  background-color: color-mix(in srgb, var(--bg) 70%, transparent);
+  backdrop-filter: blur(4px);
+}
+
+[cmdk-dialog] {
+  position: fixed;
+  top: 14vh;
+  left: 50%;
+  z-index: 71;
+  width: min(36rem, calc(100vw - 2rem));
+  translate: -50% 0;
+  border: 1px solid var(--line);
+  background-color: var(--surface);
+  color: var(--text);
+  overscroll-behavior: contain;
+}
+
+[cmdk-input] {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: 0.9375rem;
+}
+
+[cmdk-input]::placeholder {
+  color: var(--muted);
+}
+
+[cmdk-list] {
+  max-height: min(24rem, 56vh);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0.375rem;
+}
+
+[cmdk-group-heading] {
+  padding: 0.5rem 0.625rem 0.25rem;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+[cmdk-item] {
+  display: flex;
+  min-height: 2.5rem;
+  cursor: pointer;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 0.625rem;
+}
+
+[cmdk-item][data-selected="true"] {
+  background-color: var(--surface-2);
+  box-shadow: inset 2px 0 0 var(--signal);
+}
+
+[cmdk-empty] {
+  padding: 1.5rem 1rem;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+}
+
+.dialog {
+  margin: auto;
+  width: min(28rem, calc(100vw - 2rem));
+  border: 1px solid var(--line);
+  background-color: var(--surface);
+  color: var(--text);
+  padding: 1.25rem;
+  overscroll-behavior: contain;
+}
+
+.dialog::backdrop {
+  background-color: color-mix(in srgb, var(--bg) 70%, transparent);
+  backdrop-filter: blur(4px);
+}
+
+.kbd {
+  display: inline-flex;
+  min-width: 1.5rem;
+  justify-content: center;
+  border: 1px solid var(--line);
+  background-color: var(--bg);
+  padding: 0.0625rem 0.375rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+
+.toast {
+  position: fixed;
+  bottom: 1.25rem;
+  left: 50%;
+  z-index: 90;
+  translate: -50% 0;
+  border: 1px solid var(--signal);
+  background-color: var(--surface);
+  color: var(--text);
+  padding: 0.625rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+}
+
+/* Phase 4: case study scrollytelling. */
+.case-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+@media (min-width: 48rem) {
+  .case-steps {
+    gap: 6rem;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Rows stream in when their step becomes active or scrolls into view. */
+  .js [data-case-study] [data-step-item]:not([data-in]) [data-row] {
+    opacity: 0;
+  }
+
+  .js [data-case-study] [data-step-item][data-in] [data-row] {
+    animation: row-in 420ms var(--ease-entrance) both;
+    animation-delay: calc(var(--row, 0) * 80ms + 200ms);
+  }
+
+  @keyframes row-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Unmatched endpoints flash as they are tagged. */
+  .js
+    [data-step-item][data-in]
+    [data-diff-state]:not([data-diff-state="match"]) {
+    animation:
+      row-in 420ms var(--ease-entrance) both,
+      flag 900ms ease-out both;
+    animation-delay:
+      calc(var(--row, 0) * 80ms + 200ms), calc(var(--row, 0) * 80ms + 620ms);
+  }
+
+  @keyframes flag {
+    0% {
+      background-color: color-mix(in srgb, var(--warn) 28%, transparent);
+    }
+    100% {
+      background-color: transparent;
+    }
+  }
+
+  /* Pinned mode: the stage sticks while the container scrolls past. */
+  [data-case-study][data-pinned] {
+    height: 400vh;
+  }
+
+  [data-pinned] .case-stage {
+    position: sticky;
+    top: var(--nav-height);
+    height: calc(100svh - var(--nav-height));
+  }
+
+  [data-pinned] .case-steps {
+    display: block;
+    height: 100%;
+  }
+
+  [data-pinned] .case-steps > li {
+    position: absolute;
+    inset: 0 0 4.5rem;
+    align-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(1.5rem);
+    transition:
+      opacity 450ms var(--ease-entrance),
+      transform 450ms var(--ease-entrance);
+  }
+
+  [data-pinned][data-step="0"] .case-steps > li:nth-child(1),
+  [data-pinned][data-step="1"] .case-steps > li:nth-child(2),
+  [data-pinned][data-step="2"] .case-steps > li:nth-child(3),
+  [data-pinned][data-step="3"] .case-steps > li:nth-child(4) {
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
   }
 }

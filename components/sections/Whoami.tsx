@@ -1,0 +1,69 @@
+import { Chip } from "@/components/ui/Chip";
+import { CodePanel } from "@/components/ui/CodePanel";
+import { Section } from "@/components/ui/Section";
+import { profile } from "@/content/profile";
+import { ViewToggle } from "./ViewToggle";
+
+const list = (items: readonly string[]) =>
+  items.map((item) => `"${item}"`).join(", ");
+
+/** The same facts as the prose, as a typed object. Built from the content. */
+const profileAsCode = `const somil: Engineer = {
+  name: "${profile.name}",
+  role: "${profile.role}",
+  focus: [${list(profile.focus)}],
+  experience: "${profile.experienceYears} years",
+  location: "${profile.locationShort}",
+  path: [${list(profile.careerPath.split(" → "))}],
+  education: "${profile.education.degree}, ${profile.education.school}",
+  interests: [
+${profile.interests.map((interest) => `    "${interest}",`).join("\n")}
+  ],
+  status: "${profile.availability}",
+};`;
+
+const facts = [
+  `${profile.experienceYears} yrs`,
+  profile.locationShort,
+  profile.careerPath,
+];
+
+export function Whoami() {
+  return (
+    <Section id="whoami">
+      <ViewToggle
+        human={
+          <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-5 font-serif text-xl leading-snug text-pretty md:text-2xl">
+              {profile.about.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
+            <ul className="flex flex-wrap gap-2">
+              {facts.map((fact) => (
+                <li key={fact}>
+                  <Chip>{fact}</Chip>
+                </li>
+              ))}
+            </ul>
+            <p className="text-muted text-sm">
+              {profile.education.degree} · {profile.education.school} ·{" "}
+              {profile.education.years}
+              <br />
+              {profile.location}. {profile.openTo}.
+            </p>
+          </div>
+        }
+        json={
+          <CodePanel
+            title="somil.ts"
+            note="same facts, typed"
+            lang="typescript"
+            code={profileAsCode}
+            className="lg:sticky lg:top-20"
+          />
+        }
+      />
+    </Section>
+  );
+}
