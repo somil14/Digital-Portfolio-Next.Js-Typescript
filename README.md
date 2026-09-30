@@ -1,37 +1,35 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Somil Athole — portfolio (SIGNAL)
 
-## Getting Started
+Personal portfolio for Somil Athole, built as a static Next.js site and deployed on Netlify.
 
-First, run the development server:
+- Live: https://somil-athole.netlify.app
+
+## Develop
+
+Requires Node 20.9 or later.
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Scripts
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Script | What it does |
+|---|---|
+| `npm run dev` | Dev server on http://localhost:3000 |
+| `npm run build` | Static export to `out/` |
+| `npm run start` | Serve the exported `out/` folder |
+| `npm run lint` | ESLint |
+| `npm run typecheck` | TypeScript, no emit |
+| `npm run check:contrast` | WCAG AA check on every colour token pair in both themes |
+| `npm run verify` | Contrast, lint, typecheck and build together |
+| `npm run format` | Prettier |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Where things live
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# Digital-Portfolio-Next.Js-Typescript
+- `content/` — every fact on the site. Sections, metadata and the resume read from here.
+- `content/syntheticData.ts` — invented data for the demos. Nothing in it is real.
+- `app/globals.css` — colour tokens for both themes, typography scale, background.
+- `components/layout/` — nav, section menu, theme toggle, status bar.
+- `lib/` — reduced-motion and device-tier hooks.

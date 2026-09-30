@@ -1,0 +1,77 @@
+import type { SiteSection } from "./types";
+
+/** Order here is page order. The nav menu, palette and headings read from it. */
+export const sections: SiteSection[] = [
+  {
+    id: "top",
+    index: "00",
+    method: "GET",
+    path: "/",
+    label: "Home",
+    title: { serif: "Somil", mono: "Athole" },
+  },
+  {
+    id: "whoami",
+    index: "01",
+    method: "GET",
+    path: "/whoami",
+    label: "About",
+    title: { serif: "A bit", mono: "about me" },
+  },
+  {
+    id: "work",
+    index: "02",
+    method: "GET",
+    path: "/work/corefix",
+    label: "Case study",
+    title: { serif: "What I build", mono: "at work" },
+  },
+  {
+    id: "pipeline",
+    index: "03",
+    method: "TRACE",
+    path: "/request",
+    label: "Request pipeline",
+    title: { serif: "Follow a", mono: "request" },
+  },
+  {
+    id: "projects",
+    index: "04",
+    method: "GET",
+    path: "/projects",
+    label: "Projects",
+    title: { serif: "Things I've", mono: "built" },
+  },
+  {
+    id: "experience",
+    index: "05",
+    method: "GET",
+    path: "/experience",
+    label: "Experience",
+    title: { serif: "Where I've", mono: "worked" },
+  },
+  {
+    id: "stack",
+    index: "06",
+    method: "cat",
+    path: "package.json",
+    label: "Stack",
+    title: { serif: "What I", mono: "work with" },
+  },
+  {
+    id: "now",
+    index: "07",
+    method: "102",
+    path: "Processing",
+    label: "Now",
+    title: { serif: "What I'm", mono: "learning" },
+  },
+  {
+    id: "contact",
+    index: "08",
+    method: "POST",
+    path: "/contact",
+    label: "Contact",
+    title: { serif: "Send a", mono: "request" },
+  },
+];
