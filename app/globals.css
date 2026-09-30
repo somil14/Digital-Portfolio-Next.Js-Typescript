@@ -701,3 +701,94 @@ html:not(.js) .js-only {
   font-family: var(--font-mono);
   font-size: 0.8125rem;
 }
+
+/* Phase 4: case study scrollytelling. */
+.case-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+@media (min-width: 48rem) {
+  .case-steps {
+    gap: 6rem;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Rows stream in when their step becomes active or scrolls into view. */
+  .js [data-case-study] [data-step-item]:not([data-in]) [data-row] {
+    opacity: 0;
+  }
+
+  .js [data-case-study] [data-step-item][data-in] [data-row] {
+    animation: row-in 420ms var(--ease-entrance) both;
+    animation-delay: calc(var(--row, 0) * 80ms + 200ms);
+  }
+
+  @keyframes row-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Unmatched endpoints flash as they are tagged. */
+  .js
+    [data-step-item][data-in]
+    [data-diff-state]:not([data-diff-state="match"]) {
+    animation:
+      row-in 420ms var(--ease-entrance) both,
+      flag 900ms ease-out both;
+    animation-delay:
+      calc(var(--row, 0) * 80ms + 200ms), calc(var(--row, 0) * 80ms + 620ms);
+  }
+
+  @keyframes flag {
+    0% {
+      background-color: color-mix(in srgb, var(--warn) 28%, transparent);
+    }
+    100% {
+      background-color: transparent;
+    }
+  }
+
+  /* Pinned mode: the stage sticks while the container scrolls past. */
+  [data-case-study][data-pinned] {
+    height: 400vh;
+  }
+
+  [data-pinned] .case-stage {
+    position: sticky;
+    top: var(--nav-height);
+    height: calc(100svh - var(--nav-height));
+  }
+
+  [data-pinned] .case-steps {
+    display: block;
+    height: 100%;
+  }
+
+  [data-pinned] .case-steps > li {
+    position: absolute;
+    inset: 0 0 4.5rem;
+    align-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(1.5rem);
+    transition:
+      opacity 450ms var(--ease-entrance),
+      transform 450ms var(--ease-entrance);
+  }
+
+  [data-pinned][data-step="0"] .case-steps > li:nth-child(1),
+  [data-pinned][data-step="1"] .case-steps > li:nth-child(2),
+  [data-pinned][data-step="2"] .case-steps > li:nth-child(3),
+  [data-pinned][data-step="3"] .case-steps > li:nth-child(4) {
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+  }
+}

@@ -4,10 +4,12 @@ import { useState } from "react";
 import { Chip } from "@/components/ui/Chip";
 import { Panel } from "@/components/ui/Panel";
 import { caseStudy } from "@/content/caseStudy";
-import { findings } from "@/content/syntheticData";
+import { findings as allFindings } from "@/content/syntheticData";
 import type { Severity } from "@/content/types";
 import { cn } from "@/lib/cn";
 
+/** Four fit the pinned stage without scrolling. */
+const findings = allFindings.slice(0, 4);
 const decisions = ["Fix", "False positive", "Accept risk"] as const;
 type Decision = (typeof decisions)[number];
 
@@ -36,11 +38,13 @@ export function TriagePanel() {
       </p>
 
       <ul className="grid grid-cols-1 gap-3 xl:grid-cols-2">
-        {findings.map((finding) => {
+        {findings.map((finding, index) => {
           const decision = chosen[finding.id];
           return (
             <li
               key={finding.id}
+              data-row
+              style={{ "--row": index } as React.CSSProperties}
               className={cn(
                 "border-line bg-bg flex flex-col gap-3 border p-3.5 transition-opacity duration-200",
                 decision && "opacity-75",

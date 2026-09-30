@@ -5,6 +5,7 @@ import { experience } from "@/content/experience";
 import { CapturePanel } from "./CapturePanel";
 import { DiffPanel } from "./DiffPanel";
 import { RemediatePanel } from "./RemediatePanel";
+import { StepScroller } from "./StepScroller";
 import { TriagePanel } from "./TriagePanel";
 
 const role = experience.find(
@@ -24,11 +25,11 @@ export function CaseStudy() {
       id="work"
       lede="At FTPC's Corefix unit I work on an API security platform. The panels below show the idea in four steps, recreated with invented data."
     >
-      <ol className="flex flex-col gap-16 md:gap-24" data-case-study>
+      <StepScroller labels={caseStudy.steps.map((step) => step.label)}>
         {caseStudy.steps.map((step, index) => (
           <li
             key={step.id}
-            data-step={step.id}
+            data-step-item={step.id}
             className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] lg:gap-12"
           >
             <div className="flex flex-col gap-3 lg:pt-2">
@@ -43,7 +44,7 @@ export function CaseStudy() {
             {panels[step.id]}
           </li>
         ))}
-      </ol>
+      </StepScroller>
 
       {role ? (
         <div className="border-line mt-16 grid grid-cols-1 gap-8 border-t pt-10 md:mt-24 lg:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] lg:gap-12">

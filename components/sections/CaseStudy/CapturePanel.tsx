@@ -30,9 +30,11 @@ export function CapturePanel() {
           </tr>
         </thead>
         <tbody className="tabular-nums">
-          {requestLog.map((request) => (
+          {requestLog.map((request, index) => (
             <tr
               key={`${request.method} ${request.path}`}
+              data-row
+              style={{ "--row": index } as React.CSSProperties}
               className="border-line border-b last:border-b-0"
             >
               <td className="text-signal px-4 py-2">{request.method}</td>

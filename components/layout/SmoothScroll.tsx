@@ -22,7 +22,13 @@ export function SmoothScroll() {
     void import("lenis").then(({ default: Lenis }) => {
       if (cancelled) return;
       const lenis = new Lenis({ autoRaf: true, anchors: true });
-      destroy = () => lenis.destroy();
+      // Exposed so other components can scroll through Lenis, not against it.
+      const host = window as Window & { __lenis?: typeof lenis };
+      host.__lenis = lenis;
+      destroy = () => {
+        delete host.__lenis;
+        lenis.destroy();
+      };
     });
 
     return () => {

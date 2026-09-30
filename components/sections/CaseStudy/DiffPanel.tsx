@@ -36,10 +36,12 @@ export function DiffPanel() {
           </tr>
         </thead>
         <tbody>
-          {specDiff.map((row) => (
+          {specDiff.map((row, index) => (
             <tr
               key={row.observed}
               data-diff-state={row.state}
+              data-row
+              style={{ "--row": index } as React.CSSProperties}
               className="border-line border-b last:border-b-0"
             >
               <td className="text-muted px-4 py-2">
