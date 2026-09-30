@@ -1,9 +1,17 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 import { pipelineLatency } from "@/content/syntheticData";
 import { cn } from "@/lib/cn";
+import { useDeviceTier } from "@/lib/useDeviceTier";
 import { useReducedMotion } from "@/lib/useReducedMotion";
+
+// Shares the three.js chunk with the hero; mounted only on the full tier.
+const RequestPipeline = dynamic(
+  () => import("@/components/three/RequestPipeline"),
+  { ssr: false },
+);
 
 export interface TraceLayer {
   id: string;
@@ -40,6 +48,9 @@ export function PipelineTrace({ layers }: PipelineTraceProps) {
   const [cacheHit, setCacheHit] = useState(false);
   const [step, setStep] = useState<number | null>(null);
   const [selected, setSelected] = useState<number | null>(null);
+  const [near, setNear] = useState(false);
+  const [lost, setLost] = useState(false);
+  const live = useDeviceTier() === "full" && near && !lost;
 
   const hops = route(cacheHit);
   const playing = step !== null && step < hops.length - 1;
@@ -72,6 +83,22 @@ export function PipelineTrace({ layers }: PipelineTraceProps) {
     observer.observe(root);
     return () => observer.disconnect();
   }, [reducedMotion]);
+
+  // The canvas is only created once the section is close to the viewport.
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root || !("IntersectionObserver" in window)) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        setNear(true);
+        observer.disconnect();
+      },
+      { rootMargin: "500px" },
+    );
+    observer.observe(root);
+    return () => observer.disconnect();
+  }, []);
 
   function play(nextCacheHit = cacheHit) {
     setCacheHit(nextCacheHit);
@@ -135,11 +162,28 @@ export function PipelineTrace({ layers }: PipelineTraceProps) {
 
         <div className="overflow-x-auto px-4 pt-8 pb-5 md:px-8">
           <div className="relative min-w-[30rem]">
-            <div
-              aria-hidden="true"
-              className="bg-line absolute top-2 right-[10%] left-[10%] h-px"
-            />
-            {packetAt !== null ? (
+            {live ? (
+              <div className="relative h-44">
+                <RequestPipeline
+                  packetAt={packetAt}
+                  returning={returning}
+                  active={active}
+                  onLost={() => setLost(true)}
+                />
+                <span
+                  aria-hidden="true"
+                  className="label text-muted absolute top-0 right-0 normal-case"
+                >
+                  runs on {layers[HOPS]?.name}
+                </span>
+              </div>
+            ) : (
+              <div
+                aria-hidden="true"
+                className="bg-line absolute top-2 right-[10%] left-[10%] h-px"
+              />
+            )}
+            {!live && packetAt !== null ? (
               <span
                 aria-hidden="true"
                 className={cn(
@@ -160,11 +204,12 @@ export function PipelineTrace({ layers }: PipelineTraceProps) {
                         current === index ? null : index,
                       )
                     }
-                    className="group flex min-h-16 w-full flex-col items-center gap-3"
+                    className="group flex min-h-11 w-full flex-col items-center justify-center gap-3"
                   >
                     <span
                       aria-hidden="true"
                       className={cn(
+                        live && "hidden",
                         "bg-surface size-4 rounded-full border-2 transition-colors duration-200",
                         active === index
                           ? "border-signal"

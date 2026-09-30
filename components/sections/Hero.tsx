@@ -5,6 +5,7 @@ import { sections } from "@/content/sections";
 import { clusters, endpointStats, requestLog } from "@/content/syntheticData";
 import { RESUME_PDF_PATH } from "@/lib/paths";
 import { ConstellationPoster } from "./ConstellationPoster";
+import { HeroScene } from "./HeroScene";
 
 const hero = sections[0];
 const [firstName, lastName] = profile.name.split(" ");
@@ -54,7 +55,9 @@ export function Hero() {
             in {clusters.length} groups. {endpointStats.shadow} of them are
             missing from the documentation and are highlighted.
           </p>
-          <ConstellationPoster className="mx-auto max-w-[26rem] lg:max-w-none" />
+          <div className="mx-auto max-w-[26rem] lg:max-w-none">
+            <HeroScene poster={<ConstellationPoster />} />
+          </div>
         </div>
       </div>
 

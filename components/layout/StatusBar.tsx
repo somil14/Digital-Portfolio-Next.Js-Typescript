@@ -16,7 +16,7 @@ export function StatusBar() {
           <span aria-hidden="true">⎇ </span>main
         </span>
         <span>built {builtOn}</span>
-        <span>Next.js · Netlify</span>
+        <span>Next.js · React Three Fiber · Netlify</span>
         <a
           href={profile.repoUrl}
           className="text-signal ml-auto inline-flex min-h-6 items-center underline-offset-4 hover:underline"
