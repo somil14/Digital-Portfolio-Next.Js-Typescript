@@ -22,6 +22,8 @@ export interface Profile {
   name: string;
   monogram: string;
   headline: string;
+  role: string;
+  focus: string[];
   oneLiner: string;
   subLine: string;
   experienceYears: string;
@@ -123,6 +125,9 @@ export interface SiteSection {
   path: string;
   /** Plain name used for links and headings' accessible text. */
   label: string;
+  /** Decorative status pill text and timing; styling, not a measurement. */
+  status: string;
+  latencyMs: number;
   title: SectionTitle;
 }
 
@@ -154,4 +159,30 @@ export interface SyntheticFinding {
   cwe: { id: string; name: string };
   endpoint: string;
   evidence: string;
+}
+
+export type DiffState = "match" | "drift" | "shadow";
+
+export interface SyntheticDiffRow {
+  spec: string | null;
+  observed: string;
+  state: DiffState;
+  note?: string;
+}
+
+export interface SyntheticRemediation {
+  findingId: string;
+  summary: string;
+  steps: string[];
+  priority: string;
+}
+
+export interface PipelineLayer {
+  id: string;
+  name: string;
+  detail?: string;
+  does: string;
+  /** Where Somil used it. Omitted when no role can be attributed. */
+  where?: string;
+  usedIn: UsedInSlug[];
 }

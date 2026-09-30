@@ -8,6 +8,8 @@ export const sections: SiteSection[] = [
     method: "GET",
     path: "/",
     label: "Home",
+    status: "200 OK",
+    latencyMs: 12,
     title: { serif: "Somil", mono: "Athole" },
   },
   {
@@ -16,6 +18,8 @@ export const sections: SiteSection[] = [
     method: "GET",
     path: "/whoami",
     label: "About",
+    status: "200 OK",
+    latencyMs: 8,
     title: { serif: "A bit", mono: "about me" },
   },
   {
@@ -24,6 +28,8 @@ export const sections: SiteSection[] = [
     method: "GET",
     path: "/work/corefix",
     label: "Case study",
+    status: "200 OK",
+    latencyMs: 31,
     title: { serif: "What I build", mono: "at work" },
   },
   {
@@ -32,6 +38,8 @@ export const sections: SiteSection[] = [
     method: "TRACE",
     path: "/request",
     label: "Request pipeline",
+    status: "200 OK",
+    latencyMs: 48,
     title: { serif: "Follow a", mono: "request" },
   },
   {
@@ -40,6 +48,8 @@ export const sections: SiteSection[] = [
     method: "GET",
     path: "/projects",
     label: "Projects",
+    status: "200 OK",
+    latencyMs: 17,
     title: { serif: "Things I've", mono: "built" },
   },
   {
@@ -48,6 +58,8 @@ export const sections: SiteSection[] = [
     method: "GET",
     path: "/experience",
     label: "Experience",
+    status: "200 OK",
+    latencyMs: 22,
     title: { serif: "Where I've", mono: "worked" },
   },
   {
@@ -56,6 +68,8 @@ export const sections: SiteSection[] = [
     method: "cat",
     path: "package.json",
     label: "Stack",
+    status: "exit 0",
+    latencyMs: 3,
     title: { serif: "What I", mono: "work with" },
   },
   {
@@ -64,6 +78,8 @@ export const sections: SiteSection[] = [
     method: "102",
     path: "Processing",
     label: "Now",
+    status: "in progress",
+    latencyMs: 0,
     title: { serif: "What I'm", mono: "learning" },
   },
   {
@@ -72,6 +88,8 @@ export const sections: SiteSection[] = [
     method: "POST",
     path: "/contact",
     label: "Contact",
+    status: "ready",
+    latencyMs: 0,
     title: { serif: "Send a", mono: "request" },
   },
 ];

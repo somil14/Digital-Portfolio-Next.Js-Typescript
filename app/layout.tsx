@@ -8,15 +8,21 @@ import { profile } from "@/content/profile";
 import { themeInitScript } from "@/lib/theme";
 import "./globals.css";
 
+// display "optional": text paints once and never reflows when a font arrives
+// late, which keeps LCP and CLS inside the budget. Sans and serif are
+// preloaded, so they are used on any connection that can fetch them in time.
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "optional",
 });
 
-// Mono is used for small labels only, so it is not worth a preload slot.
+// Mono is only small labels and code, so it does not take a preload slot. A
+// first visit on a slow connection sees the system monospace instead.
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "optional",
   preload: false,
 });
 
@@ -25,6 +31,7 @@ const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
   weight: "400",
   style: ["normal", "italic"],
+  display: "optional",
 });
 
 export const metadata: Metadata = {

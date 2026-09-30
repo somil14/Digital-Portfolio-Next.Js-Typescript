@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
 import type { SiteSection } from "@/content/types";
 import { cn } from "@/lib/cn";
+import { RESUME_PDF_PATH } from "@/lib/paths";
 
 interface SectionMenuProps {
   sections: SiteSection[];
@@ -88,6 +89,18 @@ export function SectionMenu({ sections }: SectionMenuProps) {
               </li>
             ))}
           </ul>
+          <div className="border-line mt-1.5 flex gap-2 border-t pt-2">
+            <Link
+              href="/tldr/"
+              onClick={() => menuRef.current?.hidePopover()}
+              className="btn flex-1"
+            >
+              TL;DR
+            </Link>
+            <a href={RESUME_PDF_PATH} download className="btn flex-1">
+              Resume <span aria-hidden="true">↓</span>
+            </a>
+          </div>
         </nav>
       </div>
     </>

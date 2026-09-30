@@ -77,7 +77,7 @@
     var(--font-geist-mono), ui-monospace, "SFMono-Regular", Menlo, monospace;
   --font-serif: var(--font-instrument-serif), "Iowan Old Style", Georgia, serif;
 
-  --text-hero: clamp(4rem, 1.6rem + 10.5vw, 10rem);
+  --text-hero: clamp(4rem, 1rem + 9vw, 10rem);
   --text-hero--line-height: 0.92;
   --text-title: clamp(2.5rem, 1.5rem + 4.4vw, 5.5rem);
   --text-title--line-height: 1;
@@ -288,4 +288,139 @@ html:not(.js) .js-only {
 :root[data-theme="light"] .theme-when-dark,
 :root:not([data-theme="light"]) .theme-when-light {
   display: none;
+}
+
+@layer components {
+  /* Page gutter and max width, shared by every section. */
+  .shell {
+    width: 100%;
+    max-width: 90rem;
+    margin-inline: auto;
+    padding-inline: 1rem;
+  }
+
+  @media (min-width: 48rem) {
+    .shell {
+      padding-inline: 2rem;
+    }
+  }
+
+  .btn {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.125rem;
+    border: 1px solid var(--line);
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    letter-spacing: 0.04em;
+    color: var(--text);
+    transition:
+      border-color 200ms var(--ease-entrance),
+      background-color 200ms var(--ease-entrance),
+      color 200ms var(--ease-entrance);
+  }
+
+  .btn:hover {
+    border-color: var(--signal);
+    color: var(--signal);
+  }
+
+  .btn-primary {
+    border-color: var(--signal);
+    background-color: var(--signal);
+    color: var(--bg);
+  }
+
+  .btn-primary:hover {
+    background-color: transparent;
+    color: var(--signal);
+  }
+
+  .btn[aria-disabled="true"],
+  .btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  .link {
+    color: var(--signal);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--signal) 45%, transparent);
+  }
+
+  .link:hover {
+    text-decoration-color: currentColor;
+  }
+
+  /* Shiki output, coloured from the theme tokens so both themes stay AA. */
+  .shiki {
+    --shiki-foreground: var(--text);
+    --shiki-background: transparent;
+    --shiki-token-constant: var(--warn);
+    --shiki-token-string: var(--ok);
+    --shiki-token-comment: var(--muted);
+    --shiki-token-keyword: var(--signal);
+    --shiki-token-parameter: var(--text);
+    --shiki-token-function: var(--text);
+    --shiki-token-string-expression: var(--ok);
+    --shiki-token-punctuation: var(--muted);
+    --shiki-token-link: var(--signal);
+    margin: 0;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    line-height: 1.75;
+    tab-size: 2;
+  }
+
+  .field {
+    width: 100%;
+    min-height: 2.75rem;
+    padding: 0.625rem 0.75rem;
+    border: 1px solid var(--line);
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+  }
+
+  .field:hover {
+    border-color: var(--muted);
+  }
+}
+
+/* Resume and print: always ink on paper, whatever the theme. */
+@media print {
+  :root,
+  :root[data-theme] {
+    color-scheme: light;
+    --bg: #ffffff;
+    --surface: #ffffff;
+    --surface-2: #ffffff;
+    --line: #c9c9c9;
+    --text: #000000;
+    --muted: #3d3d3d;
+    --signal: #000000;
+    --warn: #000000;
+    --crit: #000000;
+    --ok: #000000;
+  }
+
+  @page {
+    size: A4;
+    margin: 11mm 14mm;
+  }
+
+  .skip-link {
+    display: none;
+  }
+}
+
+@layer components {
+  .shiki {
+    position: relative;
+  }
 }

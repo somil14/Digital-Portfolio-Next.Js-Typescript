@@ -10,7 +10,7 @@ export function SectionHeading({ section }: SectionHeadingProps) {
   return (
     <div className="flex flex-col gap-5">
       <Eyebrow {...section} />
-      <h2 className="text-title text-balance">
+      <h2 id={`${section.id}-title`} className="text-title text-balance">
         <span className="font-serif italic">{section.title.serif}</span>{" "}
         <span className="font-mono text-[0.62em] tracking-tight">
           {section.title.mono}

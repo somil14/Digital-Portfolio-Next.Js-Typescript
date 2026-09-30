@@ -10,7 +10,7 @@ const builtOn = new Intl.DateTimeFormat("en-GB", {
 
 export function StatusBar() {
   return (
-    <footer className="border-line bg-surface border-t">
+    <footer className="border-line bg-surface border-t print:hidden">
       <div className="label text-muted mx-auto flex max-w-[90rem] flex-wrap items-center gap-x-5 gap-y-1 px-4 py-3 md:px-8">
         <span>
           <span aria-hidden="true">⎇ </span>main

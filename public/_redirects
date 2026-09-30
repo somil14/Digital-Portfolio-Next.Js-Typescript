@@ -1,0 +1,2 @@
+# Recruiter link: /?mode=tldr goes straight to the summary page.
+/  mode=:mode  /tldr/  302!

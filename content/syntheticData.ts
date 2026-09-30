@@ -5,8 +5,10 @@
  */
 import type {
   HttpMethod,
+  SyntheticDiffRow,
   SyntheticEndpoint,
   SyntheticFinding,
+  SyntheticRemediation,
   SyntheticRequest,
 } from "./types";
 
@@ -292,3 +294,50 @@ export const findings: SyntheticFinding[] = [
     evidence: "200 OK · lists feature flags and upstream hostnames",
   },
 ];
+
+/** Spec-vs-observed rows for the diff step. */
+export const specDiff: SyntheticDiffRow[] = [
+  { spec: "GET /v1/orders", observed: "GET /v1/orders", state: "match" },
+  {
+    spec: "GET /v1/orders/{id}",
+    observed: "GET /v1/orders/{id}",
+    state: "match",
+  },
+  {
+    spec: "PATCH /v1/orders/{id}",
+    observed: "PUT /v1/orders/{id}",
+    state: "drift",
+    note: "method changed",
+  },
+  {
+    spec: "POST /v1/auth/refresh",
+    observed: "POST /v1/auth/refresh",
+    state: "match",
+  },
+  {
+    spec: "GET /v1/users/search",
+    observed: "GET /v1/users/search?include=roles",
+    state: "drift",
+    note: "parameter added",
+  },
+  { spec: null, observed: "GET /internal/v0/export", state: "shadow" },
+  { spec: "GET /v1/users/me", observed: "GET /v1/users/me", state: "match" },
+  { spec: null, observed: "POST /v1/billing/adjust", state: "shadow" },
+];
+
+/** Pre-written text the remediation step "streams". Not a live model call. */
+export const remediation: SyntheticRemediation = {
+  findingId: "SYN-0001",
+  summary:
+    "GET /internal/v0/export returns a full data export to any caller. The route is not in the OpenAPI spec, so it was never covered by the auth middleware that protects documented routes.",
+  steps: [
+    "Put the route behind the same authentication middleware as the documented API, or remove it if nothing depends on it.",
+    "Restrict it to a service role and log every call.",
+    "Add the route to the OpenAPI spec so future drift checks cover it.",
+    "Re-run the capture and confirm an unauthenticated request now returns 401.",
+  ],
+  priority: "P0 · fix before the next release",
+};
+
+/** Simulated timings for the pipeline cache toggle. */
+export const pipelineLatency = { hitMs: 4, missMs: 48 };

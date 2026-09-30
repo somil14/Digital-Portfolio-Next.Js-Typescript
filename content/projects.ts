@@ -59,8 +59,7 @@ export const projects: Project[] = [
   {
     slug: "gorillahub-rbac",
     name: "RBAC & auth (GorillaHub)",
-    summary:
-      "Token-based auth and role-based access control, shown through an interactive role switcher.",
+    summary: "Token-based auth and role-based access control for a UK client.",
     status: "Client work",
     // TODO(somil): were the tokens JWTs? If not, the demo says "token claims".
     stack: [],

@@ -4,6 +4,8 @@ export const profile: Profile = {
   name: "Somil Athole",
   monogram: "SA",
   headline: "Full Stack Engineer · API security & GenAI tooling",
+  role: "Full Stack Engineer",
+  focus: ["API security", "GenAI tooling"],
   oneLiner: "I build the tools that find what your API docs forgot.",
   subLine:
     "2.5+ years shipping React, Next.js, Node.js and PostgreSQL products. Currently building an API security platform: shadow-API detection, vulnerability triage and AI-written remediation.",
