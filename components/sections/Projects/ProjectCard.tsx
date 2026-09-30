@@ -55,7 +55,10 @@ export function ProjectCard({ project, className, demo }: ProjectCardProps) {
             <Chip key={item}>{item}</Chip>
           ))}
           {project.href ? (
-            <a href={project.href} className="link ml-auto font-mono text-sm">
+            <a
+              href={project.href}
+              className="link ml-auto inline-flex min-h-6 items-center font-mono text-sm"
+            >
               {project.href.includes("github.com") ? "Source" : "Visit"}
               <span className="sr-only">: {project.name}</span>
               <span aria-hidden="true"> ↗</span>

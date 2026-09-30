@@ -44,6 +44,16 @@ export const metadata: Metadata = {
   },
   description: profile.subLine,
   alternates: { canonical: "/" },
+  authors: [{ name: profile.name, url: profile.siteUrl }],
+  openGraph: {
+    type: "profile",
+    url: "/",
+    siteName: profile.name,
+    title: `${profile.name} — ${profile.headline}`,
+    description: profile.oneLiner,
+    locale: "en_GB",
+  },
+  twitter: { card: "summary_large_image" },
 };
 
 export const viewport: Viewport = {

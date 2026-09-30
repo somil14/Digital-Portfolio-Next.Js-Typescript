@@ -3,7 +3,9 @@
 import { useEffect } from "react";
 import { REDUCED_MOTION_QUERY } from "@/lib/useReducedMotion";
 
-const GLYPHS = "!<>-_\\/[]{}=+*^?#";
+// Letters and digits only: punctuation would add line-break opportunities,
+// so the text could re-wrap mid-animation and shift the layout.
+const GLYPHS = "0123456789ABCDEFX#";
 
 /** Characters resolve left to right from random glyphs. Runs once. */
 function decode(element: HTMLElement) {

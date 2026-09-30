@@ -13,7 +13,7 @@ export function Nav() {
         <div className="flex min-w-0 items-center gap-4">
           <Link
             href="/"
-            className="text-text hover:text-signal inline-flex h-11 items-center font-mono text-sm font-medium tracking-widest transition-colors duration-200"
+            className="text-text hover:text-signal inline-flex h-11 min-w-8 items-center font-mono text-sm font-medium tracking-widest transition-colors duration-200"
           >
             <span aria-hidden="true">{profile.monogram}</span>
             <span className="sr-only">{profile.name}, home</span>

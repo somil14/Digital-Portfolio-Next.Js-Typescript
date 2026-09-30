@@ -1,3 +1,4 @@
+import { JsonLd } from "@/components/layout/JsonLd";
 import { CaseStudy } from "@/components/sections/CaseStudy";
 import { Contact } from "@/components/sections/Contact";
 import { Experience } from "@/components/sections/Experience";
@@ -11,6 +12,7 @@ import { Whoami } from "@/components/sections/Whoami";
 export default function Home() {
   return (
     <>
+      <JsonLd />
       <Hero />
       <Whoami />
       <CaseStudy />

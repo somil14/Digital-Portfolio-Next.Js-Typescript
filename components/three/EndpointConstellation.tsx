@@ -107,7 +107,7 @@ export default function EndpointConstellation({
             type="button"
             tabIndex={-1}
             onClick={() => goToSection(link.section.id, router.push)}
-            className="label text-muted hover:text-signal pointer-events-auto absolute top-0 left-0 -mt-7 ml-3 whitespace-nowrap transition-colors duration-150"
+            className="label text-muted hover:text-signal pointer-events-auto absolute top-0 left-0 -mt-8 ml-3 inline-flex min-h-6 items-center whitespace-nowrap transition-colors duration-150"
           >
             → {link.section.label}
           </button>
